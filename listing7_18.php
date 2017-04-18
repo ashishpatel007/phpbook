@@ -1,4 +1,15 @@
-
+<?php
+	print_r($_GET);
+	$regrec = implode(", ", $_GET); //turn array into a string
+	$finalrec = $regrec . "\r\n"; //add a carriage return linefeed
+	$fp = fopen("regfile.txt", "w+"); //open file to write at end
+	if (fwrite($fp, $finalrec) == false){ //write the record
+		echo "Cannot write file.", "<br>";
+	}
+	else {
+		echo "File written.", "<br>";
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -32,7 +43,7 @@
 	</head>
 	<body onload = "document.regform.fullname.focus();">
 		<h2>Validate Form</h2>
-		<form name="regform" onsubmit="return validateform();">
+		<form name="regform" onsubmit="return validateform();" method="GET">
 			<fieldset>
 				<legend>Registration form</legend>
 				Name: <input type="text" name="fullname" size="24" />&nbsp&nbsp
